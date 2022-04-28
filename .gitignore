@@ -1,0 +1,10 @@
+/nbproject/private/
+.idea/*
+nbproject
+composer.lock
+.buildpath
+.project
+.settings/
+config/main.php
+
+

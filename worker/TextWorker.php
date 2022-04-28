@@ -28,6 +28,8 @@ class TextWorker
             'worker_num' => $this->config['child_count'],
             'max_request' => $this->config['max_requests'],
             'tcp_user_timeout' => $this->config['recv_timeout'], // ??
+            // 以守护进程方式执行，这样就不会阻塞其他服务
+            'daemonize' => 1,
         ];
         $this->serv->set($initParams);
         // register event callbacks

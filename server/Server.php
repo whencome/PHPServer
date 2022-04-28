@@ -45,9 +45,8 @@ Class Server
         ];
         foreach ($appSettings['workers'] as $name => $config) {
             $worker = self::GetWorker($name, $config, $servCfg);
-            var_dump($worker);
             if (empty($worker)) {
-                continue;
+                return;
             }
             $worker->Start();
         }
