@@ -3,8 +3,8 @@
 return array(
 
     'workers' => array(
-        # zk service
-        'ZKService' => array(                                          // 注意：键名固定为服务名
+        # service
+        'MyService' => array(                                          // 注意：键名固定为服务名
             'protocol'              => 'tcp',                           // 固定tcp
             'port'                  => 5001,                            // 每组服务一个端口
             'child_count'           => 2,                              // 启动多少个进程提供服务

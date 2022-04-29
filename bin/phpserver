@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 require_once __DIR__.'/../server/Server.php';
-// 基本参数检查
+# 基本参数检查
 if (count($argv) != 2) {
     showHelp();
     exit;
@@ -22,25 +22,25 @@ switch($command) {
         exit;
 }
 
-// 显示帮助信息
+# 显示帮助信息
 function showHelp()
 {
     echo 'useage: phpserver start|stop|restart', PHP_EOL;
 }
 
-// 启动phpserver
+# 启动phpserver
 function start()
 {
     Server::Start();
 }
 
-// 停止phpserver
+# 停止phpserver
 function stop()
 {
     Server::Stop();
 }
 
-// 重启服务
+# 重启服务
 function restart()
 {
     Server::Stop();

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  # phpserver
+  phpserver:
+    image: whencome/php:7.4-swoole4.8-alpine
+    ports:
+      - "5001:5001"
+      - "5002:5002"
+    volumes:
+      - /home/www/workspace:/home/www/workspace
+      - /home/eric/myprjs/PHPServer:/home/www/PHPServer
+      - /home/logs:/home/logs
+    command: php /home/www/PHPServer/bin/phpserver start

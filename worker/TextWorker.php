@@ -15,50 +15,56 @@ class TextWorker
     {
         $this->config = $config;
         $this->serverConfig = $serverConfig;
-        $port = $config['port'];
-        $proto = $config['protocol'];
-        $this->serv = new \Swoole\Server('0.0.0.0', $port, SWOOLE_PROCESS, $proto == 'tcp' ? SWOOLE_SOCK_TCP : SWOOLE_SOCK_UDP);
+        // $port = $config['port'];
+        // $proto = $config['protocol'];
+        // $this->serv = new \Swoole\Server('0.0.0.0', $port, SWOOLE_PROCESS, $proto == 'tcp' ? SWOOLE_SOCK_TCP : SWOOLE_SOCK_UDP);
     }
 
     // init swoole server
     protected function init()
     {
-        // set serv params
-        $initParams = [
-            'worker_num' => $this->config['child_count'],
-            'max_request' => $this->config['max_requests'],
-            'tcp_user_timeout' => $this->config['recv_timeout'], // ??
-            // 以守护进程方式执行，这样就不会阻塞其他服务
-            'daemonize' => 1,
-        ];
-        $this->serv->set($initParams);
-        // register event callbacks
-        $this->serv->on('Connect', array($this, 'onConnect'));
-        $this->serv->on('Receive', array($this, 'onReceive'));
-        $this->serv->on('Close', array($this, 'onClose'));
-        $this->serv->on('WorkerStart', array($this, 'onWorkerStart'));
+        // // set serv params
+        // $initParams = [
+        //     'worker_num' => $this->config['child_count'],
+        //     'max_request' => $this->config['max_requests'],
+        //     'tcp_user_timeout' => $this->config['recv_timeout'], // ??
+        //     // 以守护进程方式执行，这样就不会阻塞其他服务
+        //     'daemonize' => 1,
+        //     'log_file' => '/home/logs/phpserver.log',
+        // ];
+        // $this->serv->set($initParams);
+        // // register event callbacks
+        // $this->serv->on('Connect', array($this, 'onConnect'));
+        // $this->serv->on('Receive', array($this, 'onReceive'));
+        // $this->serv->on('Close', array($this, 'onClose'));
+        // $this->serv->on('WorkerStart', array($this, 'onWorkerStart'));
     }
 
     public function Start()
     {
         $this->init();
-        $this->serv->start();
+        // $this->serv->start();
     }
 
     //////////////// event callbacks /////////////////////
     // Note: all callback functions must be public
     public function onWorkerStart()
     {
-        $bootstrapFile = $this->config['bootstrap'];
-        if (!file_exists($bootstrapFile)) {
-            throw new \Exception('start worker failed: bootstrap not set');
-        }
-        include_once $bootstrapFile;
+        // $bootstrapFile = $this->config['bootstrap'];
+        // if (!file_exists($bootstrapFile)) {
+        //     throw new \Exception('start worker failed: bootstrap not set');
+        // }
+        // include_once $bootstrapFile;
     }
 
     public function onConnect($serv, $fd)
     {
         echo "Client: Connect.\n";
+        $bootstrapFile = $this->config['bootstrap'];
+        if (!file_exists($bootstrapFile)) {
+            throw new \Exception('start worker failed: bootstrap not set');
+        }
+        include_once $bootstrapFile;
     }
 
     public function onReceive($serv, $fd, $reactor_id, $data)
